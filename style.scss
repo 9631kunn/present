@@ -1,0 +1,194 @@
+html,
+body{
+  margin: 0;
+}
+
+.above-fold{
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  perspective: 800px;
+  perspective-origin: 50% 200px;
+  position: relative;
+  width: 100vw;
+
+  .info-text{
+    align-self: flex-end;
+    color: #555;
+    display: block;
+    font-family: "Avenir";
+    font-size: 13px;
+    font-weight: 100;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+  }
+}
+.wrap-present{
+  align-self: flex-end;
+  display: flex;
+  width: 100%;
+}
+
+.present-box{
+  animation: staticFront 700ms ease forwards;
+  // animation: rotate 11s alternate linear infinite;
+  cursor: pointer;
+  height: 200px;
+  margin: auto;
+  transform-style: preserve-3d;
+  width: 200px;
+
+  &.open{
+    animation: zoomIn 1s ease-in forwards;
+    transform: rotateX(-103deg) rotateY(-180deg);
+    transition: transform 400ms;
+    .present{
+      pointer-events: auto;
+      visibility: visible;
+
+      .img-wrap{
+        opacity: 1;
+        transform: translateZ(0px);
+        transition: transform 600ms 800ms, opacity 800ms 200ms;
+      }
+    }
+    & > .side{
+      opacity: .3;
+      transition: opacity 500ms 600ms;
+    }
+    & > .side.back{
+      opacity: .7;
+      transform: translateZ(-101px) rotateY(180deg);
+    }
+    /*&>.side.top{
+        opacity: .2;
+    }*/
+    & > .side.front{
+      opacity: .3;
+      transform: translateZ(100px) rotateY(190deg) translateX(0px);
+      transform-origin: 0 0;
+      transition: transform 800ms 0s, opacity 500ms 600ms;
+    }
+  }
+}
+.present-box .present{
+  display: flex;
+  height: 200px;
+  perspective: 600px;
+  pointer-events: none;
+  position: absolute;
+  transform: rotateY(-180deg) rotateX(180deg) translateZ(-100px);
+  visibility: hidden;
+  width: 200px;
+  z-index: 50;
+
+  & > .img-wrap{
+    align-self: center;
+    opacity: 0;
+    transform: translateZ(-80px);
+    transition: transform 400ms;
+    width: 200px;
+    a{
+      display: block;
+      position: relative;
+      transform: scale(.94);
+      transition: transform 300ms;
+      &:hover{
+        transform: scale(1);
+      }
+    }
+
+    img{
+      height: auto;
+      max-width: 100%;
+    }
+  }
+}
+.present-box > .side{
+  background: url(./presentbox.jpg);
+  display: block;
+  height: 200px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform 400ms;
+  width: 200px;
+
+  &.back{
+    transform: translateZ(-100px) rotateY(180deg);
+  }
+  &.right{
+    transform: rotateY(-270deg) translateX(100px);
+    transform-origin: top right;
+  }
+  &.left{
+    transform: rotateY(270deg) translateX(-100px);
+    transform-origin: center left;
+  }
+  &.top{
+    perspective: 100px;
+    text-align: center;
+    transform: rotateX(-90deg) translateY(-100px);
+    transform-origin: top center;
+    transform-style: preserve-3d;
+
+    .to{
+      background: #fff;
+      border: 5px dotted lighten(red, 20%);
+      border-width: 2px;
+      display: inline-block;
+      font-family: cursive;
+      margin: auto;
+      padding: 10px 10px 30px 10px;
+      position: relative;
+      transform: translateZ(-2px) translateY(50px);
+      &:after{
+        color: darken(red, 20%);
+        content: "Happy Birthday!!";
+        display: inline-block;
+        transform: rotateY(180deg);
+      }
+
+      .name{
+        color: green;
+        display: block;
+        font-size: 1.1rem;
+        position: absolute;
+        text-align: center;
+        transform: translateY(20px) rotateY(180deg) translateX(10px);
+        width: 100%;
+      }
+    }
+  }
+  &.bottom{
+    transform: rotateX(90deg) translateY(100px);
+    transform-origin: bottom center;
+  }
+  &.front{
+    transform: translateZ(100px);
+  }
+}
+
+@keyframes rotate{
+  100%{
+    transform: rotateY(-360deg) rotateX(180deg);
+  }
+}
+@keyframes staticFront{
+  100%{
+    transform: rotateX(-100deg) rotateY(-180deg);
+  }
+}
+@keyframes zoomIn{
+  50%{
+    transform: rotateX(-143deg) rotateY(-180deg) translateZ(-15px);
+  }
+  100%{
+    transform: rotateX(-167deg) rotateY(-180deg) translateZ(-15px) scale(1.2);
+  }
+}
